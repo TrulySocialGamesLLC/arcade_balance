@@ -1,0 +1,19 @@
+filebeat.prospectors:
+- input_type: log
+  json:
+    keys_under_root: true
+    overwrite_keys: false
+  tags: ["nginx/access"]
+  paths:
+    - /var/log/nginx/access.json
+- input_type: log
+  json:
+    keys_under_root: true
+    overwrite_keys: false
+  tags: ["rails"]
+  paths:
+    - /home/app/pgr-server/log/*.json
+
+output.logstash:
+  hosts: ["logstash:5044"]
+  index: "logs"

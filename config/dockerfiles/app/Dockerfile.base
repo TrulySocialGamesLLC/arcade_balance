@@ -1,0 +1,49 @@
+FROM phusion/passenger-ruby24:0.9.26
+
+# see update.sh for why all "apt-get install"s have to stay as one long line
+RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+# see http://guides.rubyonrails.org/command_line.html#rails-dbconsole
+RUN apt-get update && apt-get install -y logrotate mysql-client postgresql-client sqlite3 imagemagick wget gzip golang git --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y postfix
+
+RUN mkfifo /var/spool/postfix/public/pickup
+
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.4.0-amd64.deb
+RUN dpkg -i filebeat-5.4.0-amd64.deb
+
+ADD ./config/dockerfiles/runit/rails-log-forwarder.sh /etc/service/rails-log-forwarder/run
+RUN chown root /etc/service/rails-log-forwarder/run
+RUN chmod +x /etc/service/rails-log-forwarder/run
+
+COPY ./config/dockerfiles/init.d/no-nginx-in-test.sh /etc/my_init.d/no-nginx-in-test
+RUN chmod +x /etc/my_init.d/no-nginx-in-test
+
+RUN mkdir -p /etc/nginx/geoip
+WORKDIR /etc/nginx/geoip
+
+RUN wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+RUN gunzip GeoIP.dat.gz
+RUN wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+RUN gunzip GeoLiteCity.dat.gz
+
+#  Filebeat forwarder configuration
+ADD ./config/dockerfiles/configs/filebeat.yml /etc/filebeat/filebeat.yml
+ADD ./config/dockerfiles/runit/filebeat.sh /etc/service/filebeat/run
+RUN chown root /etc/service/filebeat/run
+RUN chmod +x /etc/service/filebeat/run
+RUN touch /etc/service/filebeat/down
+
+# fix /etc/logrotate.conf (wrong group definition)
+RUN sed "s/su root syslog/su root root/g" /etc/logrotate.conf > /etc/logrotate.conf.fixed
+RUN mv /etc/logrotate.conf.fixed /etc/logrotate.conf
+RUN cp /etc/cron.daily/logrotate /etc/cron.hourly/
+
+ADD config/dockerfiles/configs/logrotate.conf /etc/logrotate.d/pgr-server
+
+ENV TZ 'UTC'
+
+WORKDIR /tmp
+ADD Gemfile.stable Gemfile.stable
+ADD Gemfile.lock Gemfile.lock
+RUN bundle install -j8 --gemfile=Gemfile.stable
