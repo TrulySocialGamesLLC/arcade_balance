@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby24:0.9.26
+FROM phusion/passenger-ruby25
 
 # see update.sh for why all "apt-get install"s have to stay as one long line
 RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
@@ -39,11 +39,13 @@ RUN sed "s/su root syslog/su root root/g" /etc/logrotate.conf > /etc/logrotate.c
 RUN mv /etc/logrotate.conf.fixed /etc/logrotate.conf
 RUN cp /etc/cron.daily/logrotate /etc/cron.hourly/
 
-ADD config/dockerfiles/configs/logrotate.conf /etc/logrotate.d/pgr-server
+ADD config/dockerfiles/configs/logrotate.conf /etc/logrotate.d/arcade_balance
+
+RUN ruby -v
 
 ENV TZ 'UTC'
 
 WORKDIR /tmp
-ADD Gemfile.stable Gemfile.stable
+ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
-RUN bundle install -j8 --gemfile=Gemfile.stable
+RUN bundle install -j8 --gemfile=Gemfile

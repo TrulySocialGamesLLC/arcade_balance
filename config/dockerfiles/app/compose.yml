@@ -13,22 +13,21 @@ services:
   app:
     networks:
       - default
-      - central-dbs
-      - tournaments
+      - arcade-balance-db
       - elk
     environment:
       - SERVICE_PORTS=80
       - MIX_ENV=prod
       - ENABLE_ROLLBAR=true
       - LOG_LEVEL=info
-      - POSTGRES_USER=app_arcade
+      - POSTGRES_USER=root
       - POSTGRES_PASSWORD=weallalive137
-      - POSTGRES_DB=arcade_prod
-      - ORIGIN_URL=//arcade.production.server-planet-gold-rush.com
-      - VIRTUAL_HOST=http://arcade.production.server-planet-gold-rush.com/*,https://arcade.production.server-planet-gold-rush.com/*
+      - POSTGRES_DB=arcade-balance-db
+      - ORIGIN_URL=//arcade-balance.production.server-planet-gold-rush.com
+      - VIRTUAL_HOST=http://arcade-balance.production.server-planet-gold-rush.com/*,https://arcade-balance.production.server-planet-gold-rush.com/*
 
       - DOCKERCLOUD_CONTAINER_HOSTNAME=app-{{.Task.Slot}}
-    image: 'planetgr/arcade:v0.0.1'
+    image: 'planetgr/arcade-balance:v0.0.1'
     ports:
       - '80'
     restart: always
@@ -39,32 +38,18 @@ services:
           - node.labels.app == true
           - node.labels.cluster-name == arcade
 
-  arcade-db:
+  arcade-balance-db:
     networks:
       - default
     environment:
       - POSTGRES_PASSWORD=weallalive137
-      - POSTGRES_USER=app_arcade
+      - POSTGRES_USER=root
     image: 'postgres'
     ports:
       - '5432'
     restart: always
     volumes:
-      - /var/lib/data/arcade-db/postgresql:/var/lib/postgresql/data
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.labels.db == true
-          - node.labels.cluster-name == arcade
-
-  pmm-arcade-db-metrics:
-    networks:
-      - pmm
-      - default
-    hostname: 'central-db-{{.Node.Hostname}}'
-    image: 'planetgr/pmm-client'
-    command: "bash -l -c 'sleep 15.0; pmm-admin config --server pmm-server:80 --server-user admin --server-password 123qweASD; pmm-admin add mysql --user root --password weallalive137 --host central-db; pmm-admin remove linux:metrics; pmm-admin start --all; /sbin/my_init'"
+      - /var/lib/data/arcade-balance-db/postgresql:/var/lib/postgresql/data
     deploy:
       replicas: 1
       placement:
@@ -76,7 +61,7 @@ services:
     networks:
       - default
     environment:
-      - DOMAINS=arcade.production.server-planet-gold-rush.com
+      - DOMAINS=arcade-balance.production.server-planet-gold-rush.com
       - EMAIL=admin@one1eleven.com
       - EXCLUDE_BASIC_AUTH=true
       - LOAD_BALANCER_SERVICE_NAME=web-balancer
@@ -90,7 +75,7 @@ services:
       placement:
         constraints:
           - node.labels.balancer == true
-          - node.labels.cluster-name == arcade
+          - node.labels.cluster-name == arcade-balance
 
   web-balancer:
     networks:
@@ -118,18 +103,4 @@ services:
       placement:
         constraints:
           - node.labels.balancer == true
-          - node.labels.cluster-name == arcade
-  redis:
-    networks:
-      - default
-    image: 'redis:latest'
-    ports:
-      - '6379'
-    volumes:
-      - /var/lib/data/arcade-db/redis:/data
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.labels.db == true
-          - node.labels.cluster-name == arcade
+          - node.labels.cluster-name == arcade-balance

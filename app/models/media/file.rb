@@ -1,3 +1,6 @@
+class Media::File < ApplicationRecord
 
-class File
+  mount_uploader :data, MediaFileUploader
+  belongs_to :owner, polymorphic: true
+
 end
