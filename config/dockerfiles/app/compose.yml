@@ -13,23 +13,22 @@ services:
   app:
     networks:
       - default
-      - arcade-balance-db
-      - elk
     environment:
-      - SERVICE_PORTS=80
-      - MIX_ENV=prod
+      - RAILS_ENV=staging
       - ENABLE_ROLLBAR=true
       - LOG_LEVEL=info
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=weallalive137
       - POSTGRES_DB=arcade-balance-db
-      - ORIGIN_URL=//arcade-balance.production.server-planet-gold-rush.com
-      - VIRTUAL_HOST=http://arcade-balance.production.server-planet-gold-rush.com/*,https://arcade-balance.production.server-planet-gold-rush.com/*
-
+      - ORIGIN_URL=//admin.arcade.staging.server-planet-gold-rush.com:8080
+      - VIRTUAL_HOST=http://admin.arcade.staging.server-planet-gold-rush.com:8080/*,https://admin.arcade.staging.server-planet-gold-rush.com:8080/*
       - DOCKERCLOUD_CONTAINER_HOSTNAME=app-{{.Task.Slot}}
-    image: 'planetgr/arcade-balance:v0.0.1'
+    image: 'planetgr/arcade-balance:r0.0.1'
     ports:
-      - '80'
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
     restart: always
     deploy:
       replicas: 1
@@ -61,11 +60,11 @@ services:
     networks:
       - default
     environment:
-      - DOMAINS=arcade-balance.production.server-planet-gold-rush.com
+      - DOMAINS=admin.arcade.staging.server-planet-gold-rush.com
       - EMAIL=admin@one1eleven.com
       - EXCLUDE_BASIC_AUTH=true
       - LOAD_BALANCER_SERVICE_NAME=web-balancer
-      - SERVICE_PORTS=80
+      - SERVICE_PORTS=8080
       - VIRTUAL_HOST=http://*/.well-known/acme-challenge/*
       - VIRTUAL_HOST_WEIGHT=100000
     image: 'yard/letsencrypt:latest'
@@ -75,32 +74,4 @@ services:
       placement:
         constraints:
           - node.labels.balancer == true
-          - node.labels.cluster-name == arcade-balance
-
-  web-balancer:
-    networks:
-      - default
-    environment:
-      - 'OPTION=redispatch, httplog, dontlognull, forwardfor, httpclose'
-    image: 'planetgr/haproxy:latest'
-    links:
-      - app
-      - letsencrypt
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - live-certs:/etc/letsencrypt:rw
-    deploy:
-      placement:
-        constraints:
-          - node.labels.balancer == true
-          - node.labels.cluster-name == arcade-balance
+          - node.labels.cluster-name == arcade
