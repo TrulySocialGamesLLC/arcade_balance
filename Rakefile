@@ -47,8 +47,7 @@ namespace :build do
   end
 
   desc "Builds a specific service as per Rake task arguments"
-  task(:build, [:service, :tag]) do |task, args|
-    service = args[:service]
+  task(:build, [:tag]) do |task, args|
     tag = args[:tag]
 
     unless tag =~ /r\d+\.\d+\.\d+/
@@ -56,10 +55,14 @@ namespace :build do
       exit 1
     end
 
-    image_name = repo[ :image ] + ":" + tag
 
-    puts "Building \"#{service}\" Docker image as \"#{ image_name }\"".hl( :green )
     branch, stdout, stderr = Open3.capture3('git symbolic-ref --short -q HEAD')
+    hash, stdout, stderr = Open3.capture3('git rev-parse --short HEAD')
+
+    postfix = tag.presence || "v.#{branch.strip.gsub('/', '_')}-#{hash.strip}"
+    image_name = repo[ :image ] + ":" + postfix
+    puts "Building arcade_balance Docker image as \"#{ image_name }\"".hl( :green )
+
     execute_command "docker build --build-arg CLONE_BRANCH=#{branch.strip} -f #{ repo[ :dockerfile ] } -t #{ image_name } ."
     # execute_command "docker build -f #{ repo[ :dockerfile ] } -t #{ image_name } ."
 
