@@ -59,9 +59,9 @@ namespace :build do
     image_name = repo[ :image ] + ":" + tag
 
     puts "Building \"#{service}\" Docker image as \"#{ image_name }\"".hl( :green )
-    # branch, stdout, stderr = Open3.capture3('git symbolic-ref --short -q HEAD')
-    # execute_command "docker build --build-arg CLONE_BRANCH=#{branch.strip} -f #{ repos[ service ][ :dockerfile ] } -t #{ image_name } ."
-    execute_command "docker build -f #{ repo[ :dockerfile ] } -t #{ image_name } ."
+    branch, stdout, stderr = Open3.capture3('git symbolic-ref --short -q HEAD')
+    execute_command "docker build --build-arg CLONE_BRANCH=#{branch.strip} -f #{ repo[ :dockerfile ] } -t #{ image_name } ."
+    # execute_command "docker build -f #{ repo[ :dockerfile ] } -t #{ image_name } ."
 
     puts "Pushing \"#{ image_name }\" image into registry".hl( :green )
     execute_command "docker push #{ image_name }"
