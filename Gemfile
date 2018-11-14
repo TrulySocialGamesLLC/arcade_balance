@@ -29,6 +29,7 @@ gem 'carrierwave', '~> 1.0'
 gem "roo", "~> 2.7.0"
 
 gem 'pg', '~> 0.18.4'
+gem 'logstasher'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
