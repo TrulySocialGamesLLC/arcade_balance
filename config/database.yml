@@ -20,4 +20,4 @@ development:
 staging:
   <<: *default
   host: arcade-balance-db
-  database: <%= ENV["DB_NAME"] %>
+  database: <%= ENV["POSTGRES_DB"] %>
