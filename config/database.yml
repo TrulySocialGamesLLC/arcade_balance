@@ -24,7 +24,7 @@ staging:
 
 test:
   <<: *default
-  host: arcade-balance-db
+  host: localhost
   database: <%= ENV["POSTGRES_DB"] %>
 
 production:

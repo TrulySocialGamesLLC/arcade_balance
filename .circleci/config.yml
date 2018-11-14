@@ -9,7 +9,7 @@ jobs:
       # specify the version you desire here
        - image: circleci/ruby:2.5.3-node-browsers
          environment:
-           RAILS_ENV: staging
+           RAILS_ENV: test
            ENABLE_ROLLBAR: true
            POSTGRES_USER: root
            POSTGRES_PASSWORD: weallalive137
