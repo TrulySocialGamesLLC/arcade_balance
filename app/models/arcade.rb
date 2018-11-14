@@ -1,0 +1,2 @@
+module Arcade
+end

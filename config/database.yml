@@ -22,6 +22,11 @@ staging:
   host: arcade-balance-db
   database: <%= ENV["POSTGRES_DB"] %>
 
+arcade:
+  <<: *default
+  host: <%= ENV["ARCADE_DB_URL"]> %>
+  database: <%= ENV["ARCADE_DB_NAME"]> %>
+
 test:
   <<: *default
   host: localhost
