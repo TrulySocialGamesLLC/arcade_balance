@@ -240,7 +240,7 @@ module GameDesign
       puts "OnNom uses #{ self.strategy } strategy"
 
       ::ApplicationRecord.transaction do
-        url = file.try(:data).try(:url) || ((Rails.env.test? || Rails.env.development?) ? @configuration.file.data.path : @configuration.file.data.url)
+        url = file.try(:data).try(:url) || @configuration.file.data.path
         doc = Roo::Spreadsheet.open(open(url).path, extension: :xlsx)
 
         SHEETS.each do |sheet_name|
