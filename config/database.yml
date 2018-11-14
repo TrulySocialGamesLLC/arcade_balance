@@ -21,3 +21,14 @@ staging:
   <<: *default
   host: arcade-balance-db
   database: <%= ENV["POSTGRES_DB"] %>
+
+test:
+  <<: *default
+  host: arcade-balance-db
+  database: <%= ENV["POSTGRES_DB"] %>
+
+production:
+  <<: *default
+  host: arcade-balance-db
+  database: <%= ENV["POSTGRES_DB"] %>
+
