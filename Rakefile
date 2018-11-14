@@ -50,12 +50,6 @@ namespace :build do
   task(:build, [:tag]) do |task, args|
     tag = args[:tag]
 
-    unless tag =~ /r\d+\.\d+\.\d+/
-      puts "Please supply tag in the format of rX.Y.Z".hl( :red )
-      exit 1
-    end
-
-
     branch, stdout, stderr = Open3.capture3('git symbolic-ref --short -q HEAD')
     hash, stdout, stderr = Open3.capture3('git rev-parse --short HEAD')
 
