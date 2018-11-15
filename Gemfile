@@ -54,6 +54,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rspec'
 gem 'rspec-rails', '~> 3.0'
 gem 'rspec_junit_formatter', '~> 0.4.1'
+gem 'dotenv-rails'
 
 
 group :development, :test do
