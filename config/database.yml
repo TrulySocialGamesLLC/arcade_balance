@@ -24,6 +24,7 @@ staging:
 
 arcade:
   <<: *default
+  username: <%= ENV["ARCADE_DB_USER"] %>
   host: <%= ENV["ARCADE_DB_URL"] %>
   database: <%= ENV["ARCADE_DB_NAME"] %>
 
