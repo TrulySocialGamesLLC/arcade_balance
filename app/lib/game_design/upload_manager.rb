@@ -348,8 +348,19 @@ module GameDesign
         return [name, value.to_s.split(" | ").map(&:to_i).join(" | ")]
       end
 
-      if name.to_s == 'min_won_reward' || name.to_s == 'max_won_reward' || name.to_s == 'min_lost_reward' || name.to_s == 'max_lost_reward' || name.to_s == 'min_cost' || name.to_s == 'max_cost' || name.to_s == 'reward'
+      if name.to_s == 'min_won_reward' || name.to_s == 'max_won_reward' || name.to_s == 'min_lost_reward' || name.to_s == 'max_lost_reward' || name.to_s == 'min_cost' || name.to_s == 'max_cost'
         return [name, value.to_s.split(" | ")]
+      end
+
+      if name.to_s == 'reward'
+        reward = {}
+
+        value.split(" | ").each do |resource|
+          splitted_resource = resource.split(":")
+          reward[splitted_resource.first] = splitted_resource.second.to_i
+        end
+
+        return [name, reward]
       end
 
       if name.to_s == 'won_weights' || name.to_s == 'lost_weights' || name.to_s == "cooldowns"
