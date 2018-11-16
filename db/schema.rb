@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_143440) do
+ActiveRecord::Schema.define(version: 2018_11_16_153841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2018_11_16_143440) do
   end
 
   create_table "wheels_categories", force: :cascade do |t|
-    t.string "category"
+    t.string "name"
     t.integer "count"
     t.string "type"
     t.bigint "configuration_id", null: false

@@ -5,7 +5,7 @@ class Wheels::Category < ApplicationRecord
   self.inheritance_column = nil
 
   def scope_attributes
-    [:category, :type]
+    [:name, :type]
   end
 
 end
