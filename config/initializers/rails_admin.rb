@@ -1,3 +1,7 @@
+require Rails.root.join('lib', 'rails_admin', 'update_configuration.rb')
+
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::UpdateConfiguration)
+
 RailsAdmin.config do |config|
 
   config.main_app_name = ["PGR Arcade", "admin"]
@@ -35,6 +39,8 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+
+    update_configuration
 
     ## With an audit adapter, you can add:
     # history_index

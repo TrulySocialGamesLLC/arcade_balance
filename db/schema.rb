@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_135806) do
+ActiveRecord::Schema.define(version: 2018_11_16_143440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,32 @@ ActiveRecord::Schema.define(version: 2018_11_12_135806) do
     t.string "test"
     t.bigint "configuration_id", null: false
     t.index ["configuration_id"], name: "index_tests_hud_ab_tests_on_configuration_id"
+  end
+
+  create_table "wheels_categories", force: :cascade do |t|
+    t.string "category"
+    t.integer "count"
+    t.string "type"
+    t.bigint "configuration_id", null: false
+    t.index ["configuration_id"], name: "index_wheels_categories_on_configuration_id"
+  end
+
+  create_table "wheels_lots", force: :cascade do |t|
+    t.integer "weights"
+    t.string "material"
+    t.integer "count"
+    t.string "category"
+    t.string "type"
+    t.bigint "configuration_id", null: false
+    t.integer "unique_key"
+    t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
+  end
+
+  create_table "wheels_ticket_timers", force: :cascade do |t|
+    t.decimal "time"
+    t.json "reward"
+    t.bigint "configuration_id", null: false
+    t.index ["configuration_id"], name: "index_wheels_ticket_timers_on_configuration_id"
   end
 
 end

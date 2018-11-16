@@ -1,7 +1,7 @@
-module Tests
+module Wheels
 
   def self.table_name_prefix
-    'tests_'
+    'wheels_'
   end
 
 end

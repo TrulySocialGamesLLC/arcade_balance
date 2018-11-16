@@ -1,0 +1,54 @@
+= rails_admin_form_for @object, url: rails_admin.update_configuration_path(model_name: "configuration", id: @object.id), as: @abstract_model.param_key, html: { method: "put", multipart: true, class: "form-horizontal denser", data: { title: @page_name } } do |form|
+  
+  = form.hidden_field :media_file_id, value: @media_file.id
+
+  %h3= "Updated models"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= "Entity type"
+        %th= "Entity scope"
+        %th= "Changes"
+    %tbody
+      - @strategy.changed.each do |change|
+        %tr
+          %td= change.class.name
+          %td= raw change.scope_attributes.map { |attr| "<strong>#{attr}</strong>: #{change.send(attr)}" }.join("<br />")
+          %td= raw change.changes.map { |name, changes| "<strong>#{name}</strong>: #{ changes[0] } => #{ changes[1] }" }.join("<br />")
+
+  %h3= "New models"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= "Entity type"
+        %th= "Entity scope"
+        %th= "Attributes"
+    %tbody
+      - @strategy.added.each do |change|
+        %tr
+          %td= change.class.name
+          %td= raw change.scope_attributes.map { |attr| "<strong>#{attr}</strong>: #{change.send(attr)}" }.join("<br />")
+          %td= raw change.changes.map { |name, changes| "<strong>#{name}</strong>: #{ changes[1] }" }.join("<br />")
+
+  %h3= "Removed models"
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= "Entity type"
+        %th= "Entity scope"
+    %tbody
+      - @strategy.removed.each do |change|
+        %tr
+          %td= change.class.name
+          %td= raw change.scope_attributes.map { |attr| "<strong>#{attr}</strong>: #{change.send(attr)}" }.join("<br />")
+
+  .form-group.form-actions
+    .col-sm-offset-2.col-sm-10
+      %input{type: :hidden, name: 'return_to', value: (params[:return_to].presence || request.referer)}
+      %button.btn.btn-primary{type: "submit", name: "_save", :'data-disable-with' => t("admin.actions.update_configuration.apply")}
+        %i.icon-white.icon-ok
+        = t("admin.actions.update_configuration.apply")
+      %span.extra_buttons
+        %button.btn.btn-default{type: "submit", name: "_continue", :'data-disable-with' => t("admin.form.cancel"), :formnovalidate => true}
+          %i.icon-remove
+          = t("admin.form.cancel")

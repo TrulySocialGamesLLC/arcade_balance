@@ -5,7 +5,7 @@ module GameDesign
   class UploadManager
 
     module Sheets
-      TESTS = 'test'
+      WHEELS = 'wheels'
     end
 
     #  Creates new game design entities.
@@ -125,11 +125,15 @@ module GameDesign
 
     end
 
-    SHEETS = [Sheets::TESTS]
+    SHEETS = [Sheets::WHEELS]
 
     TABLES = {
-        # Test
-        hud_ab_tests:                      Tests::HudAbTest.new
+        # Weels
+        wheell_ads:                   Wheels::Lot.new(type: 'ads'),
+        wheell_premium:               Wheels::Lot.new(type: 'premium'),
+        category_ads_wheel_info:      Wheels::Category.new(type: 'ads'),
+        category_premium_wheel_info:  Wheels::Category.new(type: 'premium'),
+        ticket_timer:                 Wheels::TicketTimer.new
     }
 
     REQUIRES_SEPARATION = []
@@ -240,7 +244,7 @@ module GameDesign
       puts "OnNom uses #{ self.strategy } strategy"
 
       ::ApplicationRecord.transaction do
-        url = file.try(:data).try(:url) || @configuration.file.data.path
+        url = file.try(:data).try(:path) || @configuration.file.data.path
         doc = Roo::Spreadsheet.open(open(url).path, extension: :xlsx)
 
         SHEETS.each do |sheet_name|
@@ -344,7 +348,7 @@ module GameDesign
         return [name, value.to_s.split(" | ").map(&:to_i).join(" | ")]
       end
 
-      if name.to_s == 'min_won_reward' || name.to_s == 'max_won_reward' || name.to_s == 'min_lost_reward' || name.to_s == 'max_lost_reward' || name.to_s == 'min_cost' || name.to_s == 'max_cost'
+      if name.to_s == 'min_won_reward' || name.to_s == 'max_won_reward' || name.to_s == 'min_lost_reward' || name.to_s == 'max_lost_reward' || name.to_s == 'min_cost' || name.to_s == 'max_cost' || name.to_s == 'reward'
         return [name, value.to_s.split(" | ")]
       end
 
