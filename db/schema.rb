@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_153841) do
+ActiveRecord::Schema.define(version: 2018_11_19_141623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "common_ticket_timers", force: :cascade do |t|
+    t.decimal "time"
+    t.json "reward"
+    t.bigint "configuration_id", null: false
+    t.index ["configuration_id"], name: "index_common_ticket_timers_on_configuration_id"
+  end
 
   create_table "configurations", force: :cascade do |t|
     t.string "name"
@@ -55,13 +62,6 @@ ActiveRecord::Schema.define(version: 2018_11_16_153841) do
     t.bigint "configuration_id", null: false
     t.integer "unique_key"
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
-  end
-
-  create_table "wheels_ticket_timers", force: :cascade do |t|
-    t.decimal "time"
-    t.json "reward"
-    t.bigint "configuration_id", null: false
-    t.index ["configuration_id"], name: "index_wheels_ticket_timers_on_configuration_id"
   end
 
 end

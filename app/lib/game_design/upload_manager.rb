@@ -6,6 +6,7 @@ module GameDesign
 
     module Sheets
       WHEELS = 'wheels'
+      COMMON = 'common'
     end
 
     #  Creates new game design entities.
@@ -125,7 +126,7 @@ module GameDesign
 
     end
 
-    SHEETS = [Sheets::WHEELS]
+    SHEETS = [Sheets::WHEELS, Sheets::COMMON]
 
     TABLES = {
         # Weels
@@ -133,7 +134,7 @@ module GameDesign
         wheell_premium:               Wheels::Lot.new(type: 'premium'),
         category_ads_wheel_info:      Wheels::Category.new(type: 'ads'),
         category_premium_wheel_info:  Wheels::Category.new(type: 'premium'),
-        ticket_timer:                 Wheels::TicketTimer.new
+        ticket_timer:                 Common::TicketTimer.new
     }
 
     REQUIRES_SEPARATION = []
