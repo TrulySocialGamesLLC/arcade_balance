@@ -1,0 +1,2 @@
+class MiniGame < ApplicationRecord
+end
