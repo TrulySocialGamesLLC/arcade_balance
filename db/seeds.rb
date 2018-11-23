@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+MiniGame.create(key: 'golden_gauntlet', name: 'golden_gauntlet', enabled: true)
+MiniGame.create(key: 'nugget_blast', name: 'nugget_blast', enabled: true)
