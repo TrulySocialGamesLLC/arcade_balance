@@ -3,6 +3,8 @@ class AddChallengesTables < ActiveRecord::Migration[5.2]
 
     create_table :challenges do |t|
       t.json    :extra
+
+      t.timestamps
     end
 
     create_table :milestones do |t|
@@ -10,7 +12,9 @@ class AddChallengesTables < ActiveRecord::Migration[5.2]
       t.json    :rewards
       t.integer :range_offset_percent
 
-      t.references :challenge, foreign_key: true
+      t.references :challenge, index: true, foreign_key: { on_delete: :cascade }
+
+      t.timestamps
     end
 
   end
