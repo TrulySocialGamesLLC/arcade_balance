@@ -15,6 +15,12 @@ ActiveRecord::Schema.define(version: 2018_11_23_150439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "challenges", force: :cascade do |t|
+    t.json "extra"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "common_ticket_timers", force: :cascade do |t|
     t.decimal "time"
     t.json "reward"
@@ -38,6 +44,16 @@ ActiveRecord::Schema.define(version: 2018_11_23_150439) do
     t.index ["owner_type", "owner_id"], name: "index_media_files_on_owner_type_and_owner_id"
   end
 
+  create_table "milestones", force: :cascade do |t|
+    t.string "name"
+    t.json "rewards"
+    t.integer "range_offset_percent"
+    t.bigint "challenge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_milestones_on_challenge_id"
+  end
+
   create_table "mini_games", force: :cascade do |t|
     t.string "key"
     t.string "name"
@@ -53,6 +69,12 @@ ActiveRecord::Schema.define(version: 2018_11_23_150439) do
     t.string "test"
     t.bigint "configuration_id", null: false
     t.index ["configuration_id"], name: "index_tests_hud_ab_tests_on_configuration_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "nickname", limit: 255
+    t.datetime "inserted_at", precision: 0, null: false
+    t.datetime "updated_at", precision: 0, null: false
   end
 
   create_table "wheels_categories", force: :cascade do |t|
@@ -74,4 +96,5 @@ ActiveRecord::Schema.define(version: 2018_11_23_150439) do
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
+  add_foreign_key "milestones", "challenges", on_delete: :cascade
 end
