@@ -3,17 +3,14 @@ class AddChallengesTables < ActiveRecord::Migration[5.2]
 
     create_table :challenges do |t|
       t.json    :extra
-      t.integer :day_duration
-      t.integer :week_duration
-      t.integer :minimum_daily_score
-      t.integer :utc_offset_seconds
     end
 
     create_table :milestones do |t|
       t.string  :name
       t.json    :rewards
       t.integer :range_offset_percent
-      t.integer :challenge_id
+
+      t.references :challenge, foreign_key: true
     end
 
   end

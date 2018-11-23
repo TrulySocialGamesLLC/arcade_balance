@@ -17,10 +17,6 @@ ActiveRecord::Schema.define(version: 2018_11_23_124516) do
 
   create_table "challenges", force: :cascade do |t|
     t.json "extra"
-    t.integer "day_duration"
-    t.integer "week_duration"
-    t.integer "minimum_daily_score"
-    t.integer "utc_offset_seconds"
   end
 
   create_table "common_ticket_timers", force: :cascade do |t|
@@ -50,7 +46,8 @@ ActiveRecord::Schema.define(version: 2018_11_23_124516) do
     t.string "name"
     t.json "rewards"
     t.integer "range_offset_percent"
-    t.integer "challenge_id"
+    t.bigint "challenge_id"
+    t.index ["challenge_id"], name: "index_milestones_on_challenge_id"
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
@@ -85,4 +82,5 @@ ActiveRecord::Schema.define(version: 2018_11_23_124516) do
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
+  add_foreign_key "milestones", "challenges"
 end
