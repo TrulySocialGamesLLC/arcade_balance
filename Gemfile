@@ -55,6 +55,7 @@ gem 'rspec'
 gem 'rspec-rails', '~> 3.0'
 gem 'rspec_junit_formatter', '~> 0.4.1'
 gem 'dotenv-rails'
+gem 'devise'
 
 
 group :development, :test do

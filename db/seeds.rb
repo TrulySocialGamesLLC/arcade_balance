@@ -7,3 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 MiniGame.create(key: 'golden_gauntlet', name: 'golden_gauntlet', enabled: true)
 MiniGame.create(key: 'nugget_blast', name: 'nugget_blast', enabled: true)
+
+Admin.create(email: 'admin@arcade.com', password: '123qwe', password_confirmation: '123qwe')
