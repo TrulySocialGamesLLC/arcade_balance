@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_141623) do
+ActiveRecord::Schema.define(version: 2018_11_23_150439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2018_11_19_141623) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_media_files_on_owner_type_and_owner_id"
+  end
+
+  create_table "mini_games", force: :cascade do |t|
+    t.string "key"
+    t.string "name"
+    t.text "description"
+    t.boolean "enabled", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_mini_games_on_key", unique: true
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
