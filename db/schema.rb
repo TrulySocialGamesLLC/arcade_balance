@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_141623) do
+ActiveRecord::Schema.define(version: 2018_11_23_124516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: :cascade do |t|
+    t.json "extra"
+    t.integer "day_duration"
+    t.integer "week_duration"
+    t.integer "minimum_daily_score"
+    t.integer "utc_offset_seconds"
+  end
 
   create_table "common_ticket_timers", force: :cascade do |t|
     t.decimal "time"
@@ -38,11 +46,24 @@ ActiveRecord::Schema.define(version: 2018_11_19_141623) do
     t.index ["owner_type", "owner_id"], name: "index_media_files_on_owner_type_and_owner_id"
   end
 
+  create_table "milestones", force: :cascade do |t|
+    t.string "name"
+    t.json "rewards"
+    t.integer "range_offset_percent"
+    t.integer "challenge_id"
+  end
+
   create_table "tests_hud_ab_tests", force: :cascade do |t|
     t.string "scene"
     t.string "test"
     t.bigint "configuration_id", null: false
     t.index ["configuration_id"], name: "index_tests_hud_ab_tests_on_configuration_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "nickname", limit: 255
+    t.datetime "inserted_at", precision: 0, null: false
+    t.datetime "updated_at", precision: 0, null: false
   end
 
   create_table "wheels_categories", force: :cascade do |t|
