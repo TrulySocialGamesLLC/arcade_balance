@@ -15,7 +15,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
-
+gem 'pry-rails'
 gem "rake"
 gem "colors"
 gem "json"
@@ -55,6 +55,7 @@ gem 'rspec'
 gem 'rspec-rails', '~> 3.0'
 gem 'rspec_junit_formatter', '~> 0.4.1'
 gem 'dotenv-rails'
+gem 'devise'
 
 
 group :development, :test do

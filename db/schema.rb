@@ -92,12 +92,6 @@ ActiveRecord::Schema.define(version: 2018_11_26_145801) do
     t.index ["configuration_id"], name: "index_tests_hud_ab_tests_on_configuration_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "nickname", limit: 255
-    t.datetime "inserted_at", precision: 0, null: false
-    t.datetime "updated_at", precision: 0, null: false
-  end
-
   create_table "wheels_categories", force: :cascade do |t|
     t.string "name"
     t.integer "count"
