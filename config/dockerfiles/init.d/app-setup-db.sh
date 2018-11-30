@@ -21,7 +21,7 @@ while true; do
 done
 
 
-if [[ $DOCKERCLOUD_CONTAINER_HOSTNAME == "app-1" ]] || ([[ $RAILS_ENV == "development" ]] && [[ $SKIP_NGINX != "true" ]]); then 
+if [[ $DOCKERCLOUD_CONTAINER_HOSTNAME == "balance-1" ]]; then
   if /sbin/setuser app mysql -N -s -u $POSTGRES_USER --password=$POSTGRES_PASSWORD -h 'arcade-balance-db' -e "select * from information_schema.tables where table_schema='arcade-balance-db' AND table_name='schema_migrations';" | grep 'schema_migrations'  2>&1 >/dev/null
   then
     /sbin/setuser app bundle exec rake db:migrate
