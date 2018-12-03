@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_093052) do
+ActiveRecord::Schema.define(version: 2018_12_03_113131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 2018_12_03_093052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type", default: "", null: false
+  end
+
+  create_table "boosters", force: :cascade do |t|
+    t.string "name"
+    t.string "minigame_key"
+    t.integer "tier"
+    t.boolean "enabled"
+    t.bigint "configuration_id", null: false
+    t.index ["configuration_id"], name: "index_boosters_on_configuration_id"
   end
 
   create_table "challenges", force: :cascade do |t|

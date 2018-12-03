@@ -134,7 +134,8 @@ module GameDesign
         wheell_premium:               Wheels::Lot.new(type: 'premium'),
         category_ads_wheel_info:      Wheels::Category.new(type: 'ads'),
         category_premium_wheel_info:  Wheels::Category.new(type: 'premium'),
-        ticket_timer:                 Common::TicketTimer.new
+        ticket_timer:                 Common::TicketTimer.new,
+        booster:                      Common::Booster.new
     }
 
     REQUIRES_SEPARATION = []
