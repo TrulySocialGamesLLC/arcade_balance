@@ -4,7 +4,7 @@ RailsAdmin.config do |config|
 
     field :version
     field :name
-    
+
     field :files do
       inline_add  true
     end
@@ -12,5 +12,6 @@ RailsAdmin.config do |config|
     nested do
       field :files
     end
+    field :initial_data
   end
 end
