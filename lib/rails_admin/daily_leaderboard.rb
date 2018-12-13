@@ -1,0 +1,48 @@
+module RailsAdmin
+  module Config
+    module Actions
+      class DailyLeaderboard < RailsAdmin::Config::Actions::Base
+
+
+        # This ensures the action only shows up for Tournaments
+        register_instance_option :visible? do
+          authorized?
+        end
+
+        # We want the action on collection
+        register_instance_option :collection do
+          true
+        end
+
+        register_instance_option :http_methods do
+          [:get, :post]
+        end
+
+        register_instance_option :link_icon do
+          'fa fa-list'
+        end
+
+        # You may or may not want pjax for your action
+        register_instance_option :pjax? do
+          false
+        end
+
+        register_instance_option :controller do
+          Proc.new do
+            if request.post?
+              @objects = []
+            else
+              @winners_data = if request.params[:date] && request.params[:challenge_id]
+                                Leaderboard::WinnersData.call(request.params[:date], request.params[:challenge_id], 'daily')
+                              else
+                                {}
+                              end
+
+              render :daily_leaderboard
+            end
+          end
+        end
+      end
+    end
+  end
+end

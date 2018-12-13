@@ -4,4 +4,5 @@ class Arcade::User < Arcade::Base
     'users'
   end
 
+  has_many :winners
 end
