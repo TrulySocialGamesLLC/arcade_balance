@@ -8,6 +8,10 @@ module Sdk
           period_key_for_challenge: {
             type: 'get',
             url: '/challenges/period_key'
+          },
+          give_reward: {
+            type: 'post',
+            url: '/winners'
           }
         }
       }.freeze

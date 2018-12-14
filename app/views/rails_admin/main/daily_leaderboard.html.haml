@@ -13,5 +13,5 @@
   %button.btn.btn-primary.mb2{type: "submit"}
     %i.icon-white.icon-ok
     = t("admin.actions.weekly_leaderboard.find")
-= render partial: 'leaderboard_table', local: { winners_data: @winners_data }
+= render partial: 'leaderboard_table', locals: { type: 'daily' }
 

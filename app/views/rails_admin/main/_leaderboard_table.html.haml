@@ -25,4 +25,7 @@
             - if @winners_data[:previous_winners_obj].keys.include?(user.id)
               %span.text-danger This user was a winner at #{@winners_data[:previous_winners_obj][user.id]}.
             - else
-              = button_to('Give Reward', '#', class: 'btn btn-success')
+              - if type == 'weekly'
+                = button_to('Give Reward', rails_admin.weekly_leaderboard_path(model_name: 'arcade~winner', user_id: user.id, date: request.params[:date], challenge_id: request.params[:challenge_id]), method: 'post', class: 'btn btn-success')
+              - elsif type == 'daily'
+                = button_to('Give Reward', rails_admin.daily_leaderboard_path(model_name: 'arcade~winner', user_id: user.id, date: request.params[:date], challenge_id: request.params[:challenge_id]), method: 'post', class: 'btn btn-success')

@@ -30,7 +30,8 @@ module RailsAdmin
         register_instance_option :controller do
           Proc.new do
             if request.post?
-              @objects = []
+              Leaderboard::GiveReward.call(request.params[:user_id].to_i, request.params[:date].to_time(:utc).strftime('%FT%TZ'), request.params[:challenge_id].to_i, 'daily')
+              redirect_to @_request.env['HTTP_REFERER']
             else
               @winners_data = if request.params[:date] && request.params[:challenge_id]
                                 Leaderboard::WinnersData.call(request.params[:date], request.params[:challenge_id], 'daily')
