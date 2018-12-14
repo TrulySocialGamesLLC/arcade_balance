@@ -19,7 +19,7 @@ module Leaderboard
       current_winner = Arcade::Winner.current_winner(period_key, challenge_id, type_to_i(type))
       previous_winners_obj ||= []
 
-      {period_key: period_key, leaderbord_top: leaderbord_top, previous_winners_obj: previous_winners_obj, current_winner: current_winner}
+      {period_key: period_key, leaderbord_top: leaderbord_top, previous_winners_obj: previous_winners_obj, current_winner: current_winner, end_period: end_period}
     end
 
     private

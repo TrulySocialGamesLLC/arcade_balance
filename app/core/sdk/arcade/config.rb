@@ -11,7 +11,7 @@ module Sdk
           },
           give_reward: {
             type: 'post',
-            url: '/winners'
+            url: '/winners/give_reward'
           }
         }
       }.freeze

@@ -1,8 +1,10 @@
 %div
   %b Period key:
   = @winners_data[:period_key]
-- if @winners_data[:current_winner]
-  %span.text-danger
+%span.text-danger
+  - if @winners_data[:end_period] && @winners_data[:end_period] > Time.now.utc
+    %b This period is not over yet
+  - if @winners_data[:current_winner]
     %b= "This week's winner is already exist (user: #{link_to @winners_data[:current_winner].user.nickname, rails_admin.show_path(model_name: 'arcade~user', id: @winners_data[:current_winner].user.id)}).".html_safe
 
 - unless @winners_data[:current_winner]
@@ -22,7 +24,8 @@
           %td{colspan: 2}= object['total_points']
           %td{colspan: 2}= object['max_points']
           %td{colspan: 2}
-            - if @winners_data[:previous_winners_obj].keys.include?(user.id)
+            - if @winners_data[:end_period] > Time.now.utc
+            - elsif @winners_data[:previous_winners_obj].keys.include?(user.id)
               %span.text-danger This user was a winner at #{@winners_data[:previous_winners_obj][user.id]}.
             - else
               - if type == 'weekly'
