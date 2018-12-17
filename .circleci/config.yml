@@ -17,6 +17,7 @@ jobs:
            DOCKER_USER: tsgci
            DOCKER_PASS: j4IrJa
            VIRTUAL_HOST: http://admin.arcade.staging.server-planet-gold-rush.com:8080/*,https://admin.arcade.staging.server-planet-gold-rush.com:8080/*
+           INTERNAL_TOKEN: zHjjMM1OH5-zpDDQESDwlWRE90YSh-kJzm9-yNj-oQyffUVvQfhQzzAECU1g2urZ3mc
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
