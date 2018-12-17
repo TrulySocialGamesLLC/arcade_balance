@@ -8,6 +8,7 @@ module Sdk
           con.adapter Faraday.default_adapter
 
           con.headers['Content-Type'] = 'application/json'
+          con.headers['Internal-Auth'] = ENV['INTERNAL_TOKEN']
           con.options.timeout = 20
         end
       end
