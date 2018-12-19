@@ -1,0 +1,4 @@
+leaderboard:
+  winner_day_limit:
+    weekly: 14
+    dayly: 14

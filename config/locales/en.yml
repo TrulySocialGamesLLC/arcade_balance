@@ -7,3 +7,13 @@ en:
         menu: 'Update balance'
         title: 'Update balance...'
         breadcrumb: 'Update balance'
+      weekly_leaderboard:
+        menu: 'Weekly Leaderboard'
+        title: 'Weekly Leaderboard'
+        breadcrumb: 'Weekly Leaderboard'
+        find: 'Find'
+      daily_leaderboard:
+        menu: 'Daily Leaderboard'
+        title: 'Daily Leaderboard'
+        breadcrumb: 'Daily Leaderboard'
+        find: 'Find'

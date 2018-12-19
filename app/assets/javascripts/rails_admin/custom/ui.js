@@ -53,4 +53,16 @@ $(function () {
         $(this).toggleClass('active');
         $(this).next('.sub-menu-container').stop().slideDown();
     });
+    $('.datepicker').each(function(i, el) {
+        $(el).datetimepicker({
+            viewMode: 'days',
+            format: 'YYYY-MM-DD HH:mm',
+            defaultDate: ($(el).data('default-date') ? new Date($(el).data('default-date')) : new Date())
+        });
+    });
+    $('.datepicker').attr("autocomplete", "off");
+    $('.challenge-filter').each(function(i, el) {
+        $(el).val($(el).data('default-date'));
+    });
+
 });

@@ -57,6 +57,11 @@ gem 'rspec_junit_formatter', '~> 0.4.1'
 gem 'dotenv-rails'
 gem 'devise'
 
+gem 'faraday', '~> 0.12.1'
+gem 'faraday_middleware', '~> 0.12.2'
+gem 'recursive-open-struct', '~> 1.1.0'
+gem 'rectify', '0.10.0'
+gem 'config'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

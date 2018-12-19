@@ -1,0 +1,34 @@
+%div
+  %b Period key:
+  = @winners_data[:period_key]
+%span.text-danger
+  - if @winners_data[:end_period] && @winners_data[:end_period] > Time.now.utc
+    %b This period is not over yet
+  - if @winners_data[:current_winner]
+    %b= "This week's winner is already exist (user: #{link_to @winners_data[:current_winner].user.nickname, rails_admin.show_path(model_name: 'arcade~user', id: @winners_data[:current_winner].user.id)}).".html_safe
+
+- unless @winners_data[:current_winner]
+  %table.table.table-striped
+    %tbody
+      %tr.active
+        %td{colspan: 2}= "Position"
+        %td{colspan: 2}= "User"
+        %td{colspan: 2}= "Total points"
+        %td{colspan: 2}= "Max points"
+        %td{colspan: 2}= "Reward"
+      - @winners_data[:leaderbord_top]&.each do |object|
+        - user = Arcade::User.find_by(id: object['user_id'])
+        %tr.active
+          %td{colspan: 2}= object['position']
+          %td{colspan: 2}= link_to user.nickname, rails_admin.show_path(model_name: 'arcade~user', id: user.id)
+          %td{colspan: 2}= object['total_points']
+          %td{colspan: 2}= object['max_points']
+          %td{colspan: 2}
+            - if @winners_data[:end_period] > Time.now.utc
+            - elsif @winners_data[:previous_winners_obj].keys.include?(user.id)
+              %span.text-danger This user was a winner at #{@winners_data[:previous_winners_obj][user.id]}.
+            - else
+              - if type == 'weekly'
+                = button_to('Give Reward', rails_admin.weekly_leaderboard_path(model_name: 'arcade~winner', user_id: user.id, date: request.params[:date], challenge_id: request.params[:challenge_id]), method: 'post', class: 'btn btn-success')
+              - elsif type == 'daily'
+                = button_to('Give Reward', rails_admin.daily_leaderboard_path(model_name: 'arcade~winner', user_id: user.id, date: request.params[:date], challenge_id: request.params[:challenge_id]), method: 'post', class: 'btn btn-success')
