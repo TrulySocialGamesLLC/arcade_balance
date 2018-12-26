@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_125637) do
+ActiveRecord::Schema.define(version: 2018_12_26_133857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,23 +91,23 @@ ActiveRecord::Schema.define(version: 2018_12_26_125637) do
     t.index ["challenge_id"], name: "index_milestones_on_challenge_id"
   end
 
-  create_table "mini_games", force: :cascade do |t|
+  create_table "minigames", force: :cascade do |t|
     t.string "key"
     t.string "name"
     t.text "description"
     t.boolean "enabled", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_mini_games_on_key", unique: true
+    t.index ["key"], name: "index_minigames_on_key", unique: true
   end
 
   create_table "scheduled_games", force: :cascade do |t|
-    t.bigint "mini_game_id"
+    t.bigint "minigame_id"
     t.date "scheduled_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mini_game_id", "scheduled_date"], name: "index_scheduled_games_on_mini_game_id_and_scheduled_date", unique: true
-    t.index ["mini_game_id"], name: "index_scheduled_games_on_mini_game_id"
+    t.index ["minigame_id", "scheduled_date"], name: "index_scheduled_games_on_minigame_id_and_scheduled_date", unique: true
+    t.index ["minigame_id"], name: "index_scheduled_games_on_minigame_id"
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
@@ -137,5 +137,5 @@ ActiveRecord::Schema.define(version: 2018_12_26_125637) do
   end
 
   add_foreign_key "milestones", "challenges", on_delete: :cascade
-  add_foreign_key "scheduled_games", "mini_games", on_delete: :cascade
+  add_foreign_key "scheduled_games", "minigames", on_delete: :cascade
 end
