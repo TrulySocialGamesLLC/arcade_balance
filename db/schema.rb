@@ -137,5 +137,5 @@ ActiveRecord::Schema.define(version: 2018_12_26_125637) do
   end
 
   add_foreign_key "milestones", "challenges", on_delete: :cascade
-  add_foreign_key "scheduled_games", "mini_games"
+  add_foreign_key "scheduled_games", "mini_games", on_delete: :cascade
 end
