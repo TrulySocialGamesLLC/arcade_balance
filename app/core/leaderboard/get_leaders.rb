@@ -14,7 +14,8 @@ module Leaderboard
                                                     period_key: period_key,
                                                     challenge_id: challenge_id,
                                                     type: type,
-                                                    previous_period_at: nil)
+                                                    previous_period_at: nil,
+                                                    minigame_id: nil)
       response.body
     end
   end
