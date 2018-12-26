@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_134345) do
+ActiveRecord::Schema.define(version: 2018_12_26_125637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,15 @@ ActiveRecord::Schema.define(version: 2018_12_10_134345) do
     t.index ["key"], name: "index_mini_games_on_key", unique: true
   end
 
+  create_table "scheduled_games", force: :cascade do |t|
+    t.bigint "mini_game_id"
+    t.datetime "scheduled_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mini_game_id", "scheduled_date"], name: "index_scheduled_games_on_mini_game_id_and_scheduled_date", unique: true
+    t.index ["mini_game_id"], name: "index_scheduled_games_on_mini_game_id"
+  end
+
   create_table "tests_hud_ab_tests", force: :cascade do |t|
     t.string "scene"
     t.string "test"
@@ -128,4 +137,5 @@ ActiveRecord::Schema.define(version: 2018_12_10_134345) do
   end
 
   add_foreign_key "milestones", "challenges", on_delete: :cascade
+  add_foreign_key "scheduled_games", "mini_games"
 end
