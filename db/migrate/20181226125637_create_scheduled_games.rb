@@ -2,7 +2,7 @@ class CreateScheduledGames < ActiveRecord::Migration[5.2]
   def change
     create_table :scheduled_games do |t|
       t.references :mini_game, foreign_key: true
-      t.datetime :scheduled_date
+      t.date :scheduled_date
 
       t.timestamps
     end

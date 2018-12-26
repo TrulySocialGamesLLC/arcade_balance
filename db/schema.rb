@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2018_12_26_125637) do
 
   create_table "scheduled_games", force: :cascade do |t|
     t.bigint "mini_game_id"
-    t.datetime "scheduled_date"
+    t.date "scheduled_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mini_game_id", "scheduled_date"], name: "index_scheduled_games_on_mini_game_id_and_scheduled_date", unique: true
