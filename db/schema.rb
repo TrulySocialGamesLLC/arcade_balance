@@ -91,14 +91,23 @@ ActiveRecord::Schema.define(version: 2018_12_27_085706) do
     t.index ["challenge_id"], name: "index_milestones_on_challenge_id"
   end
 
-  create_table "mini_games", force: :cascade do |t|
+  create_table "minigames", force: :cascade do |t|
     t.string "key"
     t.string "name"
     t.text "description"
     t.boolean "enabled", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_mini_games_on_key", unique: true
+    t.index ["key"], name: "index_minigames_on_key", unique: true
+  end
+
+  create_table "scheduled_games", force: :cascade do |t|
+    t.bigint "minigame_id"
+    t.date "scheduled_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["minigame_id", "scheduled_date"], name: "index_scheduled_games_on_minigame_id_and_scheduled_date", unique: true
+    t.index ["minigame_id"], name: "index_scheduled_games_on_minigame_id"
   end
 
   create_table "shop_items", force: :cascade do |t|
@@ -141,4 +150,5 @@ ActiveRecord::Schema.define(version: 2018_12_27_085706) do
   end
 
   add_foreign_key "milestones", "challenges", on_delete: :cascade
+  add_foreign_key "scheduled_games", "minigames", on_delete: :cascade
 end
