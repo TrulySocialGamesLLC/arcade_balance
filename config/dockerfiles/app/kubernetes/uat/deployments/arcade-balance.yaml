@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: arcade-balance
-        image: planetgr/arcade-balance:v.master-b0aab35
+        image: planetgr/arcade-balance:v.master-2021555
         ports:
         - containerPort: 80
         resources: {}
