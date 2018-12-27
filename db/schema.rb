@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_134345) do
+ActiveRecord::Schema.define(version: 2018_12_27_085706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,19 @@ ActiveRecord::Schema.define(version: 2018_12_10_134345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_mini_games_on_key", unique: true
+  end
+
+  create_table "shop_items", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "priority", limit: 2
+    t.integer "sorting", limit: 2
+    t.json "balance"
+    t.string "ios_id"
+    t.string "android_id"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
