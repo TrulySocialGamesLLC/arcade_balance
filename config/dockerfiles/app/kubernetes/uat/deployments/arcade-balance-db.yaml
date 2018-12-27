@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: arcade-balance-db
+  name: arcade-balance-db
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: arcade-balance-db
+    spec:
+      containers:
+      - name: arcade-balance-db
+        image: postgres
+        ports:
+        - containerPort: 5432
+        resources: {}
+        env:
+        - name: POSTGRES_PASSWORD
+          value: weallalive137
+        - name: POSTGRES_USER
+          value: app_arcade
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: arcade-balance-db-claim
+      nodeSelector:
+        cluster-name: arcade
+        db: "true"
+      restartPolicy: Always
+      volumes:
+      - name: arcade-balance-db-claim
+        persistentVolumeClaim:
+          claimName: arcade-balance-db-claim
