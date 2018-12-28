@@ -144,10 +144,6 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    graphql (1.8.11)
-    graphql-client (0.14.0)
-      activesupport (>= 3.0, < 6.0)
-      graphql (~> 1.6)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
@@ -378,7 +374,6 @@ DEPENDENCIES
   dotenv-rails
   faraday (~> 0.12.1)
   faraday_middleware (~> 0.12.2)
-  graphql-client
   hashie
   jbuilder (~> 2.5)
   json
