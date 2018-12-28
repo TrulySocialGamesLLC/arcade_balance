@@ -1,8 +1,15 @@
 module RailsAdmin
   module Config
     module Actions
-      class DailyLeaderboard < RailsAdmin::Config::Actions::Base
-
+      class Leaderboard < RailsAdmin::Config::Actions::Base
+        Challenges = ArcadeBalance::Client.parse <<-'GRAPHQL'
+        query {
+          challenges {
+            id
+            type
+          }
+        }
+        GRAPHQL
 
         # This ensures the action only shows up for Tournaments
         register_instance_option :visible? do
@@ -30,16 +37,22 @@ module RailsAdmin
         register_instance_option :controller do
           Proc.new do
             if request.post?
-              Leaderboard::GiveReward.call(request.params[:user_id].to_i, request.params[:date].to_time(:utc).strftime('%FT%TZ'), request.params[:challenge_id].to_i, 'daily')
+              Leaderboards::GiveReward.call(request.params[:user_id].to_i,
+                                            request.params[:date].to_time(:utc).strftime('%FT%TZ'),
+                                            request.params[:challenge_id].to_i)
+
               redirect_to @_request.env['HTTP_REFERER']
             else
+
               @winners_data = if request.params[:date] && request.params[:challenge_id]
-                                Leaderboard::WinnersData.call(request.params[:date], request.params[:challenge_id], 'daily')
+                                Leaderboards::WinnersData.call(request.params[:date], request.params[:challenge_id])
                               else
                                 {}
                               end
+              gql_challenges = ArcadeBalance::Client.query(Challenges)
+              @challenges = gql_challenges.original_hash["data"]["challenges"].map { |ch| [ch['id'], "#{ch['id']} | #{ch['type']}"] }
 
-              render :daily_leaderboard
+              render :leaderboard
             end
           end
         end

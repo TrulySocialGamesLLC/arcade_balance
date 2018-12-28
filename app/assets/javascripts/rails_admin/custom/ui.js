@@ -61,8 +61,4 @@ $(function () {
         });
     });
     $('.datepicker').attr("autocomplete", "off");
-    $('.challenge-filter').each(function(i, el) {
-        $(el).val($(el).data('default-date'));
-    });
-
 });

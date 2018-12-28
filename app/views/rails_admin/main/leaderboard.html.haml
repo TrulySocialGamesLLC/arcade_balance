@@ -1,4 +1,4 @@
-= form_tag(rails_admin.weekly_leaderboard_path(model_name: 'arcade~winner'), method: 'get', class: 'form-inline') do
+= form_tag(rails_admin.leaderboard_path(model_name: 'arcade~winner'), method: 'get', class: 'form-inline') do
 
   %div.form-group
     %label
@@ -8,10 +8,10 @@
   %div.form-group
     %label
       Challenge ID
-    = text_field_tag :challenge_id, nil, class: 'form-control challenge-filter', data: { default_date: request.params[:challenge_id] || Challenge.first.id }
+    = select_tag :challenge_id, options_from_collection_for_select(@challenges, :first, :last, request.params[:challenge_id] || @challenges.first.first), class: 'form-control'
 
   %button.btn.btn-primary.mb2{type: "submit"}
     %i.icon-white.icon-ok
-    = t("admin.actions.weekly_leaderboard.find")
+    = t("admin.actions.leaderboard.find")
 = render partial: 'leaderboard_table', locals: { type: 'weekly' }
 

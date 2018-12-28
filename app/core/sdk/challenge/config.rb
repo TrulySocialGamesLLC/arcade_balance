@@ -8,6 +8,10 @@ module Sdk
           leaderboard_index: {
             type: 'post',
             url: '/leaderboard'
+          },
+          period_key: {
+            type: 'get',
+            url: '/challenges/period_key'
           }
         }
       }.freeze

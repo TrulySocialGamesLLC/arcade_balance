@@ -1,10 +1,8 @@
 require Rails.root.join('lib', 'rails_admin', 'update_configuration.rb')
-require Rails.root.join('lib', 'rails_admin', 'weekly_leaderboard.rb')
-require Rails.root.join('lib', 'rails_admin', 'daily_leaderboard.rb')
+require Rails.root.join('lib', 'rails_admin', 'leaderboard.rb')
 
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::UpdateConfiguration)
-RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::WeeklyLeaderboard)
-RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::DailyLeaderboard)
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::Leaderboard)
 
 RailsAdmin.config do |config|
 
@@ -46,10 +44,7 @@ RailsAdmin.config do |config|
     show_in_app
 
     update_configuration
-    weekly_leaderboard do
-      only ['Arcade::Winner']
-    end
-    daily_leaderboard do
+    leaderboard do
       only ['Arcade::Winner']
     end
     ## With an audit adapter, you can add:
