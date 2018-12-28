@@ -2,14 +2,6 @@ module RailsAdmin
   module Config
     module Actions
       class Leaderboard < RailsAdmin::Config::Actions::Base
-        Challenges = ArcadeBalance::Client.parse <<-'GRAPHQL'
-        query {
-          challenges {
-            id
-            type
-          }
-        }
-        GRAPHQL
 
         # This ensures the action only shows up for Tournaments
         register_instance_option :visible? do
@@ -49,7 +41,18 @@ module RailsAdmin
                               else
                                 {}
                               end
-              gql_challenges = ArcadeBalance::Client.query(Challenges)
+
+              chs = GqlConfig::Client.parse <<-'GRAPHQL'
+                query {
+                  challenges {
+                    id
+                    type
+                  }
+                }
+              GRAPHQL
+              Leaderboard.const_set('Challenges', chs)
+              gql_challenges = GqlConfig::Client.query(Challenges)
+
               @challenges = gql_challenges.original_hash["data"]["challenges"].map { |ch| [ch['id'], "#{ch['id']} | #{ch['type']}"] }
 
               render :leaderboard

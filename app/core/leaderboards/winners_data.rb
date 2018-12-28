@@ -1,19 +1,6 @@
 module Leaderboards
   class WinnersData  < Rectify::Command
 
-    Challenge = ArcadeBalance::Client.parse <<-'GRAPHQL'
-        query($id: ID!) {
-          challenge(id: $id) {
-            id
-            type
-            extra {
-              duration
-            }
-            winRateLimit
-          }
-        }
-    GRAPHQL
-
     attr_reader :date, :challenge_id
 
     def initialize(date, challenge_id)
@@ -25,7 +12,22 @@ module Leaderboards
       period_key = Leaderboards::GetPeriodKey.call(date.to_time(:utc), challenge_id)
       leaderbord_top = Leaderboards::GetLeaders.call(period_key['key'], challenge_id.to_i)
 
-      gql_challenge = ArcadeBalance::Client.query(Challenge, variables: {id: challenge_id.to_i})
+      ch = GqlConfig::Client.parse <<-'GRAPHQL'
+          query($id: ID!) {
+            challenge(id: $id) {
+              id
+              type
+              extra {
+                duration
+              }
+              winRateLimit
+            }
+          }
+      GRAPHQL
+      WinnersData.const_set('Challenge', ch)
+
+      gql_challenge = GqlConfig::Client.query(Challenge, variables: {id: challenge_id.to_i})
+
       challenge_type = gql_challenge.original_hash["data"]["challenge"]["type"]
       challenge_duration = gql_challenge.original_hash["data"]["challenge"]["extra"]["duration"]
       challenge_limit = gql_challenge.original_hash["data"]["challenge"]["winRateLimit"]
