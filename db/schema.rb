@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_133857) do
+ActiveRecord::Schema.define(version: 2018_12_27_085706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,19 @@ ActiveRecord::Schema.define(version: 2018_12_26_133857) do
     t.datetime "updated_at", null: false
     t.index ["minigame_id", "scheduled_date"], name: "index_scheduled_games_on_minigame_id_and_scheduled_date", unique: true
     t.index ["minigame_id"], name: "index_scheduled_games_on_minigame_id"
+  end
+
+  create_table "shop_items", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.integer "priority", limit: 2
+    t.integer "sorting", limit: 2
+    t.json "balance"
+    t.string "ios_id"
+    t.string "android_id"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
