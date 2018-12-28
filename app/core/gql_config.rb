@@ -3,10 +3,10 @@ require "graphql/client/http"
 
 module GqlConfig
   # do something dodgy
-  HTTP = GraphQL::Client::HTTP.new("http://localhost:5000/graphiql") do
+  HTTP = GraphQL::Client::HTTP.new("#{ENV['CHALLENGE_SERVER_URL'] || 'http://challenge'}/api") do
     def headers(context)
       # Optionally set any HTTP headers
-      { "User-Agent": "My Client" }
+      { "authorization": ENV["INTERNAL_CHALLENGE_TOKEN"] }
     end
   end
 
