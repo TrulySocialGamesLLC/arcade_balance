@@ -19,8 +19,8 @@ module Leaderboards
               type
               extra {
                 duration
+                winRateLimit
               }
-              winRateLimit
             }
           }
       GRAPHQL
@@ -30,7 +30,7 @@ module Leaderboards
 
       challenge_type = gql_challenge.original_hash["data"]["challenge"]["type"]
       challenge_duration = gql_challenge.original_hash["data"]["challenge"]["extra"]["duration"]
-      challenge_limit = gql_challenge.original_hash["data"]["challenge"]["winRateLimit"]
+      challenge_limit = gql_challenge.original_hash["data"]["challenge"]["extra"]["winRateLimit"]
       previous_winners_obj = []
 
       unless period_key.blank?
