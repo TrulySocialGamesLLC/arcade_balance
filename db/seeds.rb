@@ -8,4 +8,4 @@
 Minigame.create(key: 'golden_gauntlet', name: 'golden_gauntlet', enabled: true)
 Minigame.create(key: 'nugget_blast', name: 'nugget_blast', enabled: true)
 
-Admin.create(email: 'admin@arcade.com', password: '123qwe', password_confirmation: '123qwe')
+Admin.create(email: 'admin@arcade.com', password: '123qwe', password_confirmation: '123qwe', access_key: 'admin_hhalkskoiaksma=')
