@@ -37,6 +37,7 @@ RUN touch log/staging.json
 # RUN touch tmp/candy_check_play_store_cache
 RUN chown -R app:app *
 
+RUN apt-get update
 RUN apt-get install -y tzdata
 
 RUN rm -rf /home/app/arcade_balance/public/assets
