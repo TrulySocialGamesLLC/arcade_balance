@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_133349) do
+ActiveRecord::Schema.define(version: 2019_01_11_091130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_133349) do
   create_table "scheduled_games", force: :cascade do |t|
     t.bigint "minigame_id"
     t.date "scheduled_date"
-    t.datetime "created_at", null: false
+    t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.index ["minigame_id", "scheduled_date"], name: "index_scheduled_games_on_minigame_id_and_scheduled_date", unique: true
     t.index ["minigame_id"], name: "index_scheduled_games_on_minigame_id"
@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 2018_12_29_133349) do
   create_table "wheels_lots", force: :cascade do |t|
     t.integer "weights"
     t.string "material"
+    t.integer "count"
     t.string "category"
     t.string "type"
     t.bigint "configuration_id", null: false
     t.integer "unique_key"
-    t.integer "count"
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
