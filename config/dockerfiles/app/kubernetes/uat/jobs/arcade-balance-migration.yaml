@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: arcade-balance-migration
-        image: planetgr/arcade-balance:v.master-2021555
+        image: planetgr/arcade-balance:v.master-25b408e
         env:
         - name: RAILS_ENV
           value: production
