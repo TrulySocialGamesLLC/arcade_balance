@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: arcade-balance
+  name: arcade-balance
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: arcade-balance
+    spec:
+      containers:
+      - name: arcade-balance
+        image: planetgr/arcade-balance:v.master-2021555
+        ports:
+        - containerPort: 80
+        resources: {}
+        env:
+        - name: RAILS_ENV
+          value: production
+        - name: ENABLE_ROLLBAR
+          value: "true"
+        - name: LOG_LEVEL
+          value: info
+        - name: POSTGRES_DB
+          value: arcade-balance-db
+        - name: POSTGRES_PASSWORD
+          value: weallalive137
+        - name: POSTGRES_USER
+          value: app_arcade
+        - name: ARCADE_DB_USER
+          value: app_arcade
+        - name: ARCADE_DB_URL
+          value: arcade-db
+        - name: ARCADE_DB_NAME
+          value: arcade_prod
+        - name: CHALLENGE_SERVER_URL
+          value: http://challenge
+        - name: ARCADE_SERVER_URL
+          value: http://arcade
+        - name: INTERNAL_TOKEN
+          value: zHjjMM1OH5-zpDDQESDwlWRE90YSh-kJzm9-yNj-oQyffUVvQfhQzzAECU1g2urZ3mc
+      nodeSelector:
+        app: "true"
+        cluster-name: arcade
+      restartPolicy: Always
