@@ -31,7 +31,6 @@ spec:
           name: arcade-balance-db-claim
       nodeSelector:
         cluster-name: arcade
-        db: "true"
       restartPolicy: Always
       volumes:
       - name: arcade-balance-db-claim
