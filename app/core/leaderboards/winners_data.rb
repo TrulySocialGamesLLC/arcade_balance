@@ -13,7 +13,7 @@ module Leaderboards
       leaderbord_top = Leaderboards::GetLeaders.call(period_key['key'], challenge_id.to_i)
 
       ch = GqlConfig::Client.parse <<-'GRAPHQL'
-          query($id: ID!) {
+          query($id: Int!) {
             challenge(id: $id) {
               id
               type
