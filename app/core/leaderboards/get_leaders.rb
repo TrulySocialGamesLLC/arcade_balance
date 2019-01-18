@@ -13,7 +13,8 @@ module Leaderboards
                                                     period_key: period_key,
                                                     challenge_id: challenge_id,
                                                     previous_period_at: nil,
-                                                    minigame_id: nil)
+                                                    minigame_id: nil,
+                                                    excluded_user_ids: [])
       response.body
     end
   end
