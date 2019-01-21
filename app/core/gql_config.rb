@@ -6,7 +6,7 @@ module GqlConfig
   HTTP = GraphQL::Client::HTTP.new("#{ENV['CHALLENGE_SERVER_URL'] || 'http://challenge'}/api") do
     def headers(context)
       # Optionally set any HTTP headers
-      { "authorization": ENV["INTERNAL_CHALLENGE_TOKEN"] }
+      {}
     end
   end
 

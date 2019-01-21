@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: arcade-balance
-        image: planetgr/arcade-balance:v.master-6663a9c
+        image: planetgr/arcade-balance:v.master-07b2b84
         ports:
         - containerPort: 80
         resources: {}
@@ -43,8 +43,6 @@ spec:
           value: http://arcade
         - name: INTERNAL_TOKEN
           value: zHjjMM1OH5-zpDDQESDwlWRE90YSh-kJzm9-yNj-oQyffUVvQfhQzzAECU1g2urZ3mc
-        - name: INTERNAL_CHALLENGE_TOKEN
-          value: AS564wyrtgdfdwaqe3wdscxc56edf
       nodeSelector:
         cluster-name: arcade
       restartPolicy: Always
