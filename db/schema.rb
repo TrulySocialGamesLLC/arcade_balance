@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_154118) do
+ActiveRecord::Schema.define(version: 2019_01_21_192718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_154118) do
     t.string "category"
     t.integer "priority", limit: 2
     t.integer "sorting", limit: 2
-    t.json "balance"
+    t.json "rewards"
     t.string "ios_id"
     t.string "android_id"
     t.boolean "enabled"
@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 2019_01_11_154118) do
   create_table "wheels_lots", force: :cascade do |t|
     t.integer "weights"
     t.string "material"
+    t.integer "count"
     t.string "category"
     t.string "type"
     t.bigint "configuration_id", null: false
     t.integer "unique_key"
-    t.integer "count"
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
