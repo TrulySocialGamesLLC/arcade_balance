@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_074304) do
+ActiveRecord::Schema.define(version: 2019_01_23_102042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 2019_01_23_074304) do
     t.string "key"
     t.string "name"
     t.text "description"
-    t.boolean "enabled", default: true
+    t.boolean "enabled", default: false
     t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_minigames_on_key", unique: true
