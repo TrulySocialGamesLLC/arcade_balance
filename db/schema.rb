@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_192718) do
+ActiveRecord::Schema.define(version: 2019_01_23_074304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_192718) do
     t.string "name"
     t.text "description"
     t.boolean "enabled", default: true
-    t.datetime "created_at", null: false
+    t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_minigames_on_key", unique: true
   end
@@ -125,11 +125,11 @@ ActiveRecord::Schema.define(version: 2019_01_21_192718) do
   create_table "wheels_lots", force: :cascade do |t|
     t.integer "weights"
     t.string "material"
-    t.integer "count"
     t.string "category"
     t.string "type"
     t.bigint "configuration_id", null: false
     t.integer "unique_key"
+    t.integer "count"
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
