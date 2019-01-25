@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_102042) do
+ActiveRecord::Schema.define(version: 2019_01_25_095526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_01_23_102042) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at", null: false
+    t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.string "type", default: "", null: false
     t.string "access_key"
