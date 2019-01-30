@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_095526) do
+ActiveRecord::Schema.define(version: 2019_01_30_155115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,8 @@ ActiveRecord::Schema.define(version: 2019_01_25_095526) do
     t.boolean "enabled"
     t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_path"
+    t.json "visual_styling"
   end
 
   create_table "tests_hud_ab_tests", force: :cascade do |t|
