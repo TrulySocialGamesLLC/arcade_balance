@@ -19,9 +19,3 @@ while true; do
     break
   fi
 done
-
-
-if [[ $DOCKERCLOUD_CONTAINER_HOSTNAME == "balance-1" ]]; then
-  /sbin/setuser app bundle exec rake db:create
-  /sbin/setuser app bundle exec rake db:migrate
-fi
