@@ -127,11 +127,11 @@ ActiveRecord::Schema.define(version: 2019_01_30_155115) do
   create_table "wheels_lots", force: :cascade do |t|
     t.integer "weights"
     t.string "material"
+    t.integer "count"
     t.string "category"
     t.string "type"
     t.bigint "configuration_id", null: false
     t.integer "unique_key"
-    t.integer "count"
     t.index ["configuration_id"], name: "index_wheels_lots_on_configuration_id"
   end
 
