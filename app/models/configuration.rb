@@ -1,5 +1,5 @@
 class Configuration < ApplicationRecord
-
+  before_create :fill_inserted_at
   # Associations
   #
   has_many :files, as: :owner, class_name: 'Media::File'
@@ -25,4 +25,7 @@ class Configuration < ApplicationRecord
     GameDesign::UploadManager.consume! self
   end
 
+  def fill_inserted_at
+    self.inserted_at = updated_at
+  end
 end
